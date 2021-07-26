@@ -1,8 +1,15 @@
 const express = require("express");
 const bodyParser = require("body-parser");
 const path = require("path");
-
+const homeRouter = require("./routes/homeRouter")
 const app = express();
+const errRouter = require("./routes/404")
+const authRouter = require("./routes/authRouter");
+
+
+
+
+
 
 // set up view engine
 // set up a view engine in our case is EJS
@@ -16,9 +23,9 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, "public")));
 
 
-app.use("/" , (req , res , next)=> {
-   console.log(req.body)
-   res.send("<h1>hello world </h1>")
-})
+app.use(homeRouter)
+app.use(authRouter)
+app.use(errRouter)
+
 
 app.listen(3000);
