@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+  <%- include("./includes/head.ejs") %>
+  <link rel="stylesheet" href="style/home.css">
+</head> 
+  <body>
+   <%- include("./includes/navbar.ejs") %> 
+  <div class="container">
+    <form action="/add-note" method="post">
+    <div class="input-group mb-3 mt-3">
+      <span class="input-group-text" id="inputGroup-sizing-default">Title</span>
+      <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+    </div>
+    <div class="input-group mb-3 mt-3">
+      <span class="input-group-text" id="inputGroup-sizing-default">Category</span>
+      <input type="text" class="form-control" value="default" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+    </div>
+    <div class="input-group">
+      <span class="input-group-text" id="inputGroup-sizing-default">Content</span>
+      <textarea class="form-control rounded-0"  rows="8"></textarea>
+    </div>
+    <div class="form-group mt-4 text-center">
+      <button type="button|submit" class="btn btn-dark px-4">Save</button>
+    </div>
+  </form>
+  </div>
+   <%- include("./includes/js-boot.ejs") %> 
+  </body>
+</html>

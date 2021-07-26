@@ -6,7 +6,9 @@ const router = express.Router();
 // home 
 router.get("/" , homeController.welcomeController)
 
-router.get("/home" , homeController.homeController)
+router.get("/home" , homeController.homeController);
+
+router.get("/create-note" , homeController.createNoteController)
 
 
 module.exports = router ;

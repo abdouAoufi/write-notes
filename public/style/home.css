@@ -1,0 +1,16 @@
+.hero{
+   padding: 1rem 2rem;
+   display: flex;
+   justify-content: space-around;
+   align-items: center;
+}
+
+.notes{
+   /* padding-left : 2.8rem; */
+}
+
+.btn-containter{
+   position: fixed;
+   bottom: 3rem;
+   right: 3rem;
+}
