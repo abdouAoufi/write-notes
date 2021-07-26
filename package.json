@@ -1,0 +1,26 @@
+{
+  "name": "TODO-NODE",
+  "version": "1.0.0",
+  "description": "Simple web app using node js",
+  "main": "app.js",
+  "scripts": {
+    "start": "nodemon app.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/abdouAoufi/TODO-NODE.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/abdouAoufi/TODO-NODE/issues"
+  },
+  "homepage": "https://github.com/abdouAoufi/TODO-NODE#readme",
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "ejs": "^3.1.6",
+    "express": "^4.17.1"
+  }
+}
