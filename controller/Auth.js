@@ -1,3 +1,4 @@
+const Note = require("../Model/Note");
 const User = require("../Model/User");
 
 exports.signUp = (req, res, next) => {
@@ -26,11 +27,31 @@ exports.postLogin = (req, res, next) => {
   })
     .then((user) => {
       if (user) {
-        req.user = user.dataValues;
-        res.redirect("/home");
+        // user
+        //   .createNote({
+        //     title: "title",
+        //     category: "category",
+        //     content: "content",
+        //   })
+        //   .then((result) => {
+        //     console.log(result);
+        //     res.redirect("/");
+        //   })
+        //   .catch((err) => console.log(err));
+        user
+          .getNotes()
+          .then((result) => {
+            res.render("home", {
+              pageTitle: "home",
+              user: user,
+              notes: result,
+            });
+          })
+          .catch((err) => console.log(err));
       } else {
         res.render("login", { pageTitle: "Login", failToLog: true });
       }
     })
+
     .catch((err) => console.log(err));
 };

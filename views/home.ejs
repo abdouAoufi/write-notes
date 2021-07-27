@@ -5,99 +5,50 @@
 </head> 
   <body>
    <%- include("./includes/navbar.ejs") %> 
+
    <main>
-     <!-- <div class="hero">
-      <div class="card border-secondary" style="max-width: 18rem;">
-        <div class="card-header">Total notes</div>
-        <div class="card-body text-secondary">
-          <h5 class="card-title">Undone notes : 12</h5>
-          <h5 class="card-title">Completed notes : 5</h5>
+     <div class="hero">
+      <% if (user) { %>
+        <div class="card" >
+          <div class="card-body">
+            <h5 class="card-title"> Name : <%= user.name %> </h5>
+            <h6 class="card-subtitle mb-2 text-muted"> Email : <%= user.email %> </h6>
+          </div>
         </div>
-      </div>
+      <% } %>
+     </div> 
 
 
-
-      <div class="card" >
-        <div class="card-body">
-          <h5 class="card-title">Aoufi abderahmane</h5>
-          <h6 class="card-subtitle mb-2 text-muted">Abdouou7@gmail.com</h6>
-        </div>
-      </div>
-     </div> -->
 
 
      <div class="notes">
        <div class="container">
          <h3 class="my-3 text-primary">My notes :</h3>
-        <div class="row">
+         <div class="row">
+         <% notes.forEach(element => { %>
           <div class="col">
             <div class="card border-black mb-3" style="max-width: 18rem;">
-              <div class="card-header">Make a node app</div>
+              <div class="card-header"><%= element.title %> </div>
               <div class="card-body text-dark">
-                <h5 class="card-title">back end</h5>
-                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                <h5 class="card-title"><%= element.category %></h5>
+                <p class="card-text"><%= element.content %> </p>
               </div>
             </div>
           </div>
-          <div class="col">
-            <div class="card border-black mb-3" style="max-width: 18rem;">
-              <div class="card-header">Make a node app</div>
-              <div class="card-body text-dark">
-                <h5 class="card-title">back end</h5>
-                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-              </div>
-            </div>
-          </div>
-          <div class="col">
-            <div class="card border-black mb-3" style="max-width: 18rem;">
-              <div class="card-header">Make a node app</div>
-              <div class="card-body text-dark">
-                <h5 class="card-title">back end</h5>
-                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col">
-            <div class="card border-black mb-3" style="max-width: 18rem;">
-              <div class="card-header">Make a node app</div>
-              <div class="card-body text-dark">
-                <h5 class="card-title">back end</h5>
-                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-              </div>
-            </div>
-          </div>
-          <div class="col">
-            <div class="card border-black mb-3" style="max-width: 18rem;">
-              <div class="card-header">Make a node app</div>
-              <div class="card-body text-dark">
-                <h5 class="card-title">back end</h5>
-                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-              </div>
-            </div>
-          </div>
-          <div class="col">
-            <div class="card border-black mb-3" style="max-width: 18rem;">
-              <div class="card-header">Make a node app</div>
-              <div class="card-body text-dark">
-                <h5 class="card-title">back end</h5>
-                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-              </div>
-            </div>
-          </div>
-        </div>
+        <% }) %>
+         </div>
+      
       </div>
-      
-      
-      
      </div>
    </main>
 
    <div class="btn-containter">
-     <a href="/create-note"><button class="btn border-dark">Create Note</button></a>
+     <a href="/create-note/<%= user.id %> "><button class="btn border-dark">Create Note</button></a>
    </div>
-
+  
+    <% if (!user) { %>
+     <script> window.location = "/login"; </script>
+    <% } %>
    <%- include("./includes/js-boot.ejs") %> 
   </body>
 </html>
