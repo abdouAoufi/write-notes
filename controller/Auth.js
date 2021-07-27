@@ -27,17 +27,6 @@ exports.postLogin = (req, res, next) => {
   })
     .then((user) => {
       if (user) {
-        // user
-        //   .createNote({
-        //     title: "title",
-        //     category: "category",
-        //     content: "content",
-        //   })
-        //   .then((result) => {
-        //     console.log(result);
-        //     res.redirect("/");
-        //   })
-        //   .catch((err) => console.log(err));
         user
           .getNotes()
           .then((result) => {

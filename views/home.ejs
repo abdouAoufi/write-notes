@@ -25,25 +25,26 @@
        <div class="container">
          <h3 class="my-3 text-primary">My notes :</h3>
          <div class="row">
-         <% notes.forEach(element => { %>
-          <div class="col">
-            <div class="card border-black mb-3" style="max-width: 18rem;">
-              <div class="card-header"><%= element.title %> </div>
-              <div class="card-body text-dark">
-                <h5 class="card-title"><%= element.category %></h5>
-                <p class="card-text"><%= element.content %> </p>
+           <% if (notes) { %>
+            <% notes.forEach(element => { %>
+              <div class="col">
+                <div class="card border-black mb-3 " style="max-width: 18rem; height: 8rem;">
+                  <div class="card-header"><%= element.title %> </div>
+                  <div class="card-body text-dark">
+                    <h5 class="card-title"><%= element.category %></h5>
+                    <p class="card-text"><%= element.content %> </p>
+                  </div>
+                </div>
               </div>
-            </div>
-          </div>
-        <% }) %>
+            <% }) %>
+           <% } %>
          </div>
-      
       </div>
      </div>
    </main>
 
    <div class="btn-containter">
-     <a href="/create-note/<%= user.id %> "><button class="btn border-dark">Create Note</button></a>
+     <a href="/create-note/<%= user.id %> "><button class="btn btn-dark">Create Note</button></a>
    </div>
   
     <% if (!user) { %>

@@ -18,13 +18,21 @@ exports.postCreateNote = (req, res, next) => {
   const title = req.body.title;
   const category = req.body.category;
   const content = req.body.content;
-  console.log(21 , userId)
+  console.log(21, userId);
   User.findByPk(userId)
     .then((user) => {
-      console.log("found this item")
-      console.log(user);
-      res.redirect("/");
+      console.log("found this item");
+      if (user) {
+        user.createNote({ title, category, content }).then(() => {
+          user.getNotes().then((result) => {
+            res.render("home", {
+              pageTitle: "home",
+              user: user,
+              notes: result,
+            });
+          });
+        });
+      }
     })
     .catch((err) => console.log(err));
-
 };
