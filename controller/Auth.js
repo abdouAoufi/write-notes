@@ -5,7 +5,7 @@ exports.signUp = (req, res, next) => {
 };
 
 exports.login = (req, res, next) => {
-  res.render("login.ejs", { pageTitle: "Login" });
+  res.render("login.ejs", { pageTitle: "Login", failToLog: false });
 };
 
 exports.postSignUp = (req, res, next) => {
@@ -14,8 +14,23 @@ exports.postSignUp = (req, res, next) => {
   const password = req.body.password;
 
   User.create({ name, password, email })
-    .then(() => console.log("created"))
+    .then(() => res.redirect("/home"))
     .catch((err) => console.log(err));
+};
 
-  res.redirect("/");
+exports.postLogin = (req, res, next) => {
+  const email = req.body.email;
+  const password = req.body.password;
+  User.findOne({
+    where: { email: email, password: password },
+  })
+    .then((user) => {
+      if (user) {
+        req.user = user.dataValues;
+        res.redirect("/home");
+      } else {
+        res.render("login", { pageTitle: "Login", failToLog: true });
+      }
+    })
+    .catch((err) => console.log(err));
 };

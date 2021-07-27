@@ -17,27 +17,33 @@
 		      	<div class="icon d-flex align-items-center justify-content-center">
 		      		<span class="fa fa-user-o"></span>
 		      	</div>
-		      
-						<form action="#" class="login-form">
-		      		<div class="form-group">
-		      			<input type="text" class="form-control rounded-left my-2" placeholder="Username" required>
-		      		</div>
-	            <div class="form-group d-flex">
-	              <input type="password" class="form-control rounded-left my-2" placeholder="Password" required>
-	            </div>
-	            <div class="form-group mt-4 text-center">
-	            	<button type="button|submit" class="btn btn-dark ">Login</button>
-	            </div>
+						<!-- ! MY-LOGIN-FORM -->
+						<form action="/login" class="login-form" method="POST">
+		      		
+							<div class="form-group">
+		      				<input name="email" type="email" class="form-control rounded-left my-2" placeholder="Email" required>
+		      			</div>
+	            		<div class="form-group d-flex">
+	              			<input name="password" type="password" class="form-control rounded-left my-2" placeholder="Password" required>
+							</div>
+	            		<div class="form-group mt-4 text-center">
+	            			<button type="button|submit" class="btn btn-dark ">Login</button>
+	            		</div>
 
-              <div class="form-group mt-4 text-center">
-	            	<a href="/signup" class="link-dark"> <p>don't have an account ?</p>  </a>
-	            </div>
-	          </form>
-	        </div>
+              			<div class="form-group mt-4 text-center">
+	            			<a href="/signup" class="link-dark"> <p>don't have an account ?</p>  </a>
+	            		</div>
+
+	          		</form>
+	        	</div>
 				</div>
 			</div>
 		</div>
 	</section> 
+
+	<% if (failToLog) { %>
+		<script>alert("The information you provided are wrong")</script>
+	<% } %>
    <%- include("./includes/js-boot.ejs") %> 
   </body>
 </html>
