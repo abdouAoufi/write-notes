@@ -2,11 +2,21 @@ const Note = require("../Model/Note");
 const User = require("../Model/User");
 
 exports.signUp = (req, res, next) => {
-  res.render("signup.ejs", { pageTitle: "Sign up" });
+  const isLogged = req.session.isLoggedIn;
+  if (!isLogged) {
+    res.render("signup.ejs", { pageTitle: "Sign up", isLogged: false });
+  } else {
+    res.redirect("/home");
+  }
 };
 
 exports.login = (req, res, next) => {
-  res.render("login.ejs", { pageTitle: "Login", failToLog: false });
+  const isLogged = req.session.isLoggedIn;
+  if (!isLogged) {
+    res.render("login.ejs", { pageTitle: "Login", isLogged: false });
+  } else {
+    res.redirect("/home");
+  }
 };
 
 exports.postSignUp = (req, res, next) => {
@@ -27,18 +37,11 @@ exports.postLogin = (req, res, next) => {
   })
     .then((user) => {
       if (user) {
-        user
-          .getNotes()
-          .then((result) => {
-            res.render("home", {
-              pageTitle: "home",
-              user: user,
-              notes: result,
-            });
-          })
-          .catch((err) => console.log(err));
+        req.session.userId = user.id;
+        req.session.isLoggedIn = true;
+        res.redirect("/home");
       } else {
-        res.render("login", { pageTitle: "Login", failToLog: true });
+        res.redirect("login");
       }
     })
 

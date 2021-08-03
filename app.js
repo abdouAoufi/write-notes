@@ -8,16 +8,24 @@ const authRouter = require("./routes/authRouter");
 const db = require("./util/database");
 const User = require("./Model/User");
 const Note = require("./Model/Note");
+const session = require("express-session");
 
 // { force: true }
 db.sync()
-  .then(() => console.log("Connected !"))
+  .then(() => {
+    console.log("Connected !");
+    app.listen(3000);
+  })
   .catch((err) => console.log("Error !", err));
 
 // set up view engine
 // set up a view engine in our case is EJS
 app.set("view engine", "ejs");
 app.set("views", "views");
+
+app.use(
+  session({ secret: "my secret", resave: false, saveUninitialized: false })
+);
 
 // set up relations
 Note.belongsTo(User, { onDelete: "CASCADE", constrain: true });
@@ -32,5 +40,3 @@ app.use(express.static(path.join(__dirname, "public")));
 app.use(authRouter);
 app.use(homeRouter);
 app.use(errRouter);
-
-app.listen(3000);

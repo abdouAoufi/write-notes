@@ -5,7 +5,8 @@
 </head> 
   <body>
    <%- include("./includes/navbar.ejs") %> 
-  <div class="container">
+   <main>
+   <div class="container">
     <form action="/create-note" method="post">
         <div class="input-group mb-3 mt-3" >
           <span class="input-group-text" id="inputGroup-sizing-default">Title</span>
@@ -19,12 +20,12 @@
           <span class="input-group-text" id="inputGroup-sizing-default">Content</span>
           <textarea name="content" class="form-control rounded-0"  rows="8"></textarea>
         </div>
-        <input type="hidden" name="userId" value="<%= userId %> ">
         <div class="form-group mt-4 text-center">
           <button type="button|submit" class="btn btn-dark px-4">Save</button>
         </div>
-  </form>
-  </div>
+    </form>
+    </div>
+  </main>
    <%- include("./includes/js-boot.ejs") %> 
   </body>
 </html>

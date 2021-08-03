@@ -3,7 +3,18 @@
 // });
 
 
+`
 
+
+
+
+<% if (!user) { %>
+<script> window.location = "/login"; </script>
+<% } %>
+
+
+
+`
 
 
 

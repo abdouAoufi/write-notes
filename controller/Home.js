@@ -5,32 +5,49 @@ exports.welcomeController = (req, res, next) => {
 };
 
 exports.homeController = (req, res, next) => {
-  res.render("home.ejs", { pageTitle: "Your notes", user: null });
+  const isLogged = req.session.isLoggedIn;
+  if (isLogged) {
+    User.findByPk(req.session.userId)
+      .then((user) => {
+        user
+          .getNotes()
+          .then((notes) => {
+            res.render("home", {
+              pageTitle: "home",
+              user: user,
+              isLogged,
+              notes: notes,
+            });
+          })
+          .catch((err) => console.log(err));
+      })
+      .catch((err) => console.log(err));
+  } else {
+    res.redirect("/login");
+  }
 };
 
 exports.createNoteController = (req, res, next) => {
-  const user = req.params.userId;
-  res.render("add-note.ejs", { pageTitle: "Add note", userId: user });
+  const isLogged = req.session.isLoggedIn;
+  if (isLogged) {
+    res.render("addnote.ejs", { pageTitle: "Add note", isLogged: isLogged });
+  } else {
+    res.redirect("/login");
+  }
 };
 
 exports.postCreateNote = (req, res, next) => {
-  const userId = req.body.userId;
+  const userId = req.session.userId;
   const title = req.body.title;
   const category = req.body.category;
   const content = req.body.content;
-  console.log(21, userId);
+
   User.findByPk(userId)
     .then((user) => {
       console.log("found this item");
       if (user) {
         user.createNote({ title, category, content }).then(() => {
-          user.getNotes().then((result) => {
-            res.render("home", {
-              pageTitle: "home",
-              user: user,
-              notes: result,
-            });
-          });
+          res.redirect("/home");
         });
       }
     })

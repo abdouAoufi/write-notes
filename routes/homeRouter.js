@@ -8,7 +8,7 @@ router.get("/", homeController.welcomeController);
 
 router.get("/home", homeController.homeController);
 
-router.get("/create-note/:userId", homeController.createNoteController);
+router.get("/create-note", homeController.createNoteController);
 
 router.post("/create-note", homeController.postCreateNote);
 
