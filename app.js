@@ -9,8 +9,9 @@ const db = require("./util/database");
 const User = require("./Model/User");
 const Note = require("./Model/Note");
 const session = require("express-session");
+var MySQLStore = require("express-mysql-session")(session);
 
-// { force: true }
+
 db.sync()
   .then(() => {
     console.log("Connected !");
@@ -18,14 +19,33 @@ db.sync()
   })
   .catch((err) => console.log("Error !", err));
 
+
+var options = {
+  host: "localhost",
+  port: 3306,
+  user: "root",
+  password: "abdou1331",
+  database: "todo",
+};
+
+var sessionStore = new MySQLStore(options);
+
+app.use(
+  session({
+    key: "session_cookie_name",
+    secret: "session_cookie_secret",
+    store: sessionStore,
+    resave: false,
+    saveUninitialized: false,
+  })
+);
+
+// { force: true }
+
 // set up view engine
 // set up a view engine in our case is EJS
 app.set("view engine", "ejs");
 app.set("views", "views");
-
-app.use(
-  session({ secret: "my secret", resave: false, saveUninitialized: false })
-);
 
 // set up relations
 Note.belongsTo(User, { onDelete: "CASCADE", constrain: true });
