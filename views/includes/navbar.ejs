@@ -15,17 +15,20 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
         <% if (!isLogged) { %>
-          <li class="nav-item">
-            <a class="nav-link" href="/signup">Sign up</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="/login">Log in</a>
-          </li>
-        <% } else {  %>
-          <li class="nav-item">
-            <a class="nav-link" href="/login">Log out </a>
-          </li>
-          <% } %> 
+        <li class="nav-item">
+          <a class="nav-link" href="/signup">Sign up</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/login">Log in</a>
+        </li>
+        <% } else { %>
+        <li class="nav-item">
+          <form action="/logout" method="post">
+            <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+            <button class="nav-link" type="submit">Log out</button>
+          </form>
+        </li>
+        <% } %>
       </ul>
     </div>
   </div>

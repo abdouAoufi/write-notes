@@ -26,6 +26,8 @@
 	            		<div class="form-group d-flex">
 	              			<input name="password" type="password" class="form-control rounded-left my-2" placeholder="Password" required>
 							</div>
+							
+							<input type="hidden" name="_csrf" value="<%= csrfToken %>" />
 	            		<div class="form-group mt-4 text-center">
 	            			<button type="button|submit" class="btn btn-dark ">Login</button>
 	            		</div>
@@ -33,6 +35,8 @@
               			<div class="form-group mt-4 text-center">
 	            			<a href="/signup" class="link-dark"> <p>don't have an account ?</p>  </a>
 	            		</div>
+
+							
 
 	          		</form>
 	        	</div>

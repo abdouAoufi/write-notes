@@ -4,6 +4,36 @@
   <link rel="stylesheet" href="/style/welcome.css">
 </head> 
   <body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+      <div class="container-fluid">
+        <a class="navbar-brand" href="/">To do</a>
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarSupportedContent"
+          aria-controls="navbarSupportedContent"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+              <li class="nav-item">
+                <a class="nav-link" href="/signup">Sign up</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="/login">Log in</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="/login">Log out </a>
+              </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+    
    <section id="hero" class="hero-container hero d-flex align-items-center">
 
       <div class="container">
@@ -13,7 +43,7 @@
             <h2 data-aos="fade-up" data-aos-delay="400">We are team of talented designers making websites with Bootstrap</h2>
             <div data-aos="fade-up" data-aos-delay="600">
 
-              <div class="text-center text-lg-start">
+              <div class="text-center text-lg-start mt-12">
                 <a href="/signup" class="btn-get-started scrollto d-inline-flex align-items-center justify-content-center align-self-center">
                   <button type="button" class="btn btn-dark">Get started</button> 
                   <i class="bi bi-arrow-right"></i>

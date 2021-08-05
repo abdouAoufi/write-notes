@@ -9,8 +9,21 @@ const db = require("./util/database");
 const User = require("./Model/User");
 const Note = require("./Model/Note");
 const session = require("express-session");
+const csrf = require("csurf");
 var MySQLStore = require("express-mysql-session")(session);
 
+// set up view engine
+// set up a view engine in our case is EJS
+app.set("view engine", "ejs");
+app.set("views", "views");
+
+// set up request
+app.use(bodyParser.urlencoded({ extended: false }));
+
+// set up static files
+app.use(express.static(path.join(__dirname, "public")));
+
+const protection = csrf();
 
 db.sync()
   .then(() => {
@@ -19,6 +32,9 @@ db.sync()
   })
   .catch((err) => console.log("Error !", err));
 
+// set up relations
+Note.belongsTo(User, { onDelete: "CASCADE", constrain: true });
+User.hasMany(Note);
 
 var options = {
   host: "localhost",
@@ -40,22 +56,14 @@ app.use(
   })
 );
 
+app.use(protection);
 // { force: true }
 
-// set up view engine
-// set up a view engine in our case is EJS
-app.set("view engine", "ejs");
-app.set("views", "views");
-
-// set up relations
-Note.belongsTo(User, { onDelete: "CASCADE", constrain: true });
-User.hasMany(Note);
-
-// set up request
-app.use(bodyParser.urlencoded({ extended: false }));
-
-// set up static files
-app.use(express.static(path.join(__dirname, "public")));
+app.use((req, res, next) => {
+  res.locals.isAuthenticated = req.session.isLoggedIn;
+  res.locals.csrfToken = req.csrfToken();
+  next();
+});
 
 app.use(authRouter);
 app.use(homeRouter);
