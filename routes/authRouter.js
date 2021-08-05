@@ -12,4 +12,17 @@ router.post("/login" , Auth.postLogin);
 
 router.post("/logout" , Auth.postLogout);
 
+
+
+router.get("/reset" , Auth.getResetPassword);
+
+router.post("/reset" , Auth.postResetPassword);
+
+router.get("/reset/:token" , Auth.getNewPasswordReset);
+
+router.post("/new-password" , Auth.postNewPassword);
+
+
+router.get("/back-link.ejs" , Auth.getBackLink);
+
 module.exports = router ;

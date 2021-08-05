@@ -10,7 +10,7 @@ const User = require("./Model/User");
 const Note = require("./Model/Note");
 const session = require("express-session");
 const csrf = require("csurf");
-const MySQLStore = require("express-mysql-session")(session); 
+const MySQLStore = require("express-mysql-session")(session);
 const flash = require("connect-flash");
 
 // set up view engine
@@ -58,7 +58,7 @@ app.use(
 );
 
 app.use(protection);
-app.use(flash())
+app.use(flash());
 // { force: true }
 
 app.use((req, res, next) => {
