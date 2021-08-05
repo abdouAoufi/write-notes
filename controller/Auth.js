@@ -14,8 +14,18 @@ exports.signUp = (req, res, next) => {
 
 exports.login = (req, res, next) => {
   const isLogged = req.session.isLoggedIn;
+  let errorMessage = req.flash("error");
+  if (errorMessage.length > 0) {
+    errorMessage = errorMessage[0];
+  } else {
+    errorMessage = null;
+  }
   if (!isLogged) {
-    res.render("login.ejs", { pageTitle: "Login", isLogged: false });
+    res.render("login.ejs", {
+      pageTitle: "Login",
+      isLogged: false,
+      errorMessage: errorMessage,
+    });
   } else {
     res.redirect("/home");
   }
@@ -31,6 +41,7 @@ exports.postSignUp = (req, res, next) => {
     .then((user) => {
       console.log(user);
       if (user) {
+        req.flash("error", "This email is already exists!");
         return res.redirect("/signup");
       }
       bcrypt
@@ -57,6 +68,7 @@ exports.postLogin = (req, res, next) => {
   User.findOne({ where: { email: email } })
     .then((user) => {
       if (!user) {
+        req.flash("error", "No account bound with this email");
         return res.redirect("/login");
       }
       bcrypt
@@ -67,25 +79,18 @@ exports.postLogin = (req, res, next) => {
             req.session.isLoggedIn = true;
             res.redirect("/home");
           } else {
+            req.flash("error", "Password incorrect!");
             return res.redirect("/login");
           }
         })
         .catch((err) => {
+          req.flash("error", "Something went wrong!");
           return res.redirect("/login");
         });
     })
     .catch((err) => {
       return res.redirect("/login");
     })
-
-    // .then((user) => {
-    //   if (user) {
-
-    //   } else {
-    //     res.redirect("login");
-    //   }
-    // })
-
     .catch((err) => console.log(err));
 };
 

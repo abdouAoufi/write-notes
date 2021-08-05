@@ -10,7 +10,8 @@ const User = require("./Model/User");
 const Note = require("./Model/Note");
 const session = require("express-session");
 const csrf = require("csurf");
-var MySQLStore = require("express-mysql-session")(session);
+const MySQLStore = require("express-mysql-session")(session); 
+const flash = require("connect-flash");
 
 // set up view engine
 // set up a view engine in our case is EJS
@@ -57,6 +58,7 @@ app.use(
 );
 
 app.use(protection);
+app.use(flash())
 // { force: true }
 
 app.use((req, res, next) => {

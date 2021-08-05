@@ -35,14 +35,15 @@
               			<div class="form-group mt-4 text-center">
 	            			<a href="/signup" class="link-dark"> <p>don't have an account ?</p>  </a>
 	            		</div>
-
-							
-
 	          		</form>
-	        	</div>
+	        	   </div>
 				</div>
 			</div>
 		</div>
+		<% if (errorMessage) { %>
+			<div class="text-center text-danger"><%= errorMessage %> </div>
+		<% } %>
+		
 	</section> 
 
  
