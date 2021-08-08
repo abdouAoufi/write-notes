@@ -18,7 +18,8 @@ const flash = require("connect-flash");
 app.set("view engine", "ejs");
 app.set("views", "views");
 
-// set up request
+// set up parsing request
+app.use(express.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
 // set up static files
@@ -57,13 +58,13 @@ app.use(
   })
 );
 
-app.use(protection);
+// app.use(protection);
 app.use(flash());
 // { force: true }
 
 app.use((req, res, next) => {
   res.locals.isAuthenticated = req.session.isLoggedIn;
-  res.locals.csrfToken = req.csrfToken();
+  // res.locals.csrfToken = req.csrfToken();
   next();
 });
 

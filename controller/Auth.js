@@ -2,11 +2,16 @@ const Note = require("../Model/Note");
 const User = require("../Model/User");
 const crypto = require("crypto");
 const bcrypt = require("bcryptjs");
+const { validationResult } = require("express-validator");
 
 exports.signUp = (req, res, next) => {
   const isLogged = req.session.isLoggedIn;
   if (!isLogged) {
-    res.render("signup.ejs", { pageTitle: "Sign up", isLogged: false });
+    res.render("signup.ejs", {
+      pageTitle: "Sign up",
+      isLogged: false,
+      errorMessage: null,
+    });
   } else {
     res.redirect("/home");
   }
@@ -35,28 +40,26 @@ exports.postSignUp = (req, res, next) => {
   const name = req.body.name;
   const email = req.body.email;
   const password = req.body.password;
-
-  console.log(name, email, password);
-  User.findOne({ where: { email: email } })
-    .then((user) => {
-      console.log(user);
-      if (user) {
-        req.flash("error", "This email is already exists!");
-        return res.redirect("/signup");
-      }
-      bcrypt
-        .hash(password, 12)
-        .then((hashedPassword) => {
-          User.create({ name: name, password: hashedPassword, email: email })
-            .then(() => res.redirect("/home"))
-            .catch((err) => console.log(err));
+  const errors = validationResult(req);
+  console.log(errors.array());
+  if (!errors.isEmpty()) {
+    return res.render("signup.ejs", {
+      pageTitle: "Sign up",
+      isLogged: false,
+      errorMessage: errors.array()[0].msg,
+    });
+  }
+  bcrypt
+    .hash(password, 12)
+    .then((hashedPassword) => {
+      User.create({ name: name, password: hashedPassword, email: email })
+        .then(() => {
+          res.redirect("/home");
         })
-        .catch((err) => {
-          console.log(42, err);
-          return res.redirect("/signup");
-        });
+        .catch((err) => console.log(err));
     })
     .catch((err) => {
+      console.log(42, err);
       return res.redirect("/signup");
     });
 };
@@ -64,13 +67,16 @@ exports.postSignUp = (req, res, next) => {
 exports.postLogin = (req, res, next) => {
   const email = req.body.email;
   const password = req.body.password;
-
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    return res.render("login.ejs", {
+      pageTitle: "login",
+      isLogged: false,
+      errorMessage: errors.array()[0].msg,
+    });
+  }
   User.findOne({ where: { email: email } })
     .then((user) => {
-      if (!user) {
-        req.flash("error", "No account bound with this email");
-        return res.redirect("/login");
-      }
       bcrypt
         .compare(password, user.password)
         .then((doMatch) => {
@@ -90,8 +96,7 @@ exports.postLogin = (req, res, next) => {
     })
     .catch((err) => {
       return res.redirect("/login");
-    })
-    .catch((err) => console.log(err));
+    });
 };
 
 exports.postLogout = (req, res) => {
@@ -165,7 +170,7 @@ exports.getNewPasswordReset = (req, res) => {
     });
 };
 
-exports.postNewPassword = (req, res) => { 
+exports.postNewPassword = (req, res) => {
   const password = req.body.password;
   const token = req.body.token;
   User.findOne({ token: token })

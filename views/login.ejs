@@ -4,6 +4,9 @@
 </head> 
   <body>
    <%- include("./includes/navbar.ejs") %>
+	<% if (errorMessage) { %>
+		<div class="text-center text-danger"><%= errorMessage %> </div>
+	<% } %>
    <section class="ftco-section">
 		<div class="container">
 			<div class="row justify-content-center mt-4">
@@ -20,13 +23,13 @@
 						<!-- ! MY-LOGIN-FORM -->
 						<form action="/login" class="login-form" method="POST">
 							<div class="form-group">
-		      				<input name="email" type="email" class="form-control rounded-left my-2" placeholder="Email" required>
+		      				<input name="email" type="text" class="form-control rounded-left my-2" placeholder="Email" required>
 		      			</div>
 	            		<div class="form-group d-flex">
 	              			<input name="password" type="password" class="form-control rounded-left my-2" placeholder="Password" required>
 							</div>
 							
-							<input type="hidden" name="_csrf" value="<%= csrfToken %>" />
+							<input type="hidden" name="_csrf" value="csrfToken" />
 	            		<div class="form-group mt-4 text-center">
 	            			<button type="button|submit" class="btn btn-dark ">Login</button>
 	            		</div>
@@ -43,13 +46,7 @@
 				</div>
 			</div>
 		</div>
-		<% if (errorMessage) { %>
-			<div class="text-center text-danger"><%= errorMessage %> </div>
-		<% } %>
-		
 	</section> 
-
- 
    <%- include("./includes/js-boot.ejs") %> 
   </body>
 </html>
