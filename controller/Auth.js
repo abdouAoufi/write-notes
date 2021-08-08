@@ -188,8 +188,6 @@ exports.postNewPassword = (req, res) => {
 
 exports.getBackLink = (req, res) => {
   const token = req.session.token;
-  console.log("token", token);
   const link = `http://localhost:3000/reset/${token}`;
-  console.log(link);
   res.render("back-link.ejs", { pageTitle: "reset password", link: link });
 };

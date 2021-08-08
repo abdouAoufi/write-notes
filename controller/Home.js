@@ -5,35 +5,25 @@ exports.welcomeController = (req, res, next) => {
 };
 
 exports.homeController = (req, res, next) => {
-  const isLogged = req.session.isLoggedIn;
-  if (isLogged) {
-    User.findByPk(req.session.userId)
-      .then((user) => {
-        user
-          .getNotes()
-          .then((notes) => {
-            res.render("home", {
-              pageTitle: "home",
-              user: user,
-              isLogged,
-              notes: notes,
-            });
-          })
-          .catch((err) => console.log(err));
-      })
-      .catch((err) => console.log(err));
-  } else {
-    res.redirect("/login");
-  }
+  User.findByPk(req.session.userId)
+    .then((user) => {
+      user
+        .getNotes()
+        .then((notes) => {
+          res.render("home", {
+            pageTitle: "home",
+            user: user,
+            isLogged: true,
+            notes: notes,
+          });
+        })
+        .catch((err) => console.log(err));
+    })
+    .catch((err) => console.log(err));
 };
 
 exports.createNoteController = (req, res, next) => {
-  const isLogged = req.session.isLoggedIn;
-  if (isLogged) {
-    res.render("addnote.ejs", { pageTitle: "Add note", isLogged: isLogged });
-  } else {
-    res.redirect("/login");
-  }
+  res.render("addnote.ejs", { pageTitle: "Add note", isLogged: true });
 };
 
 exports.postCreateNote = (req, res, next) => {
