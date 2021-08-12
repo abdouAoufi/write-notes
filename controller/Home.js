@@ -40,18 +40,28 @@ exports.postCreateNote = (req, res, next) => {
   const category = req.body.category;
   const content = req.body.content;
   const image = req.file;
-  if (!image) {
-    return res.render("addnote.ejs", { pageTitle: "Add note", isLogged: true });
+  // if (!image) {
+  //   return res.render("addnote.ejs", { pageTitle: "Add note", isLogged: true });
+  // }
+  let imagePath = null;
+  if (image) {
+    imagePath = image.path;
   }
-  const imagePath = image.path;
 
   User.findByPk(userId)
     .then((user) => {
       console.log("found this item");
       if (user) {
-        user.createNote({ title, category, content, imagePath }).then(() => {
-          res.redirect("/home");
-        });
+        user
+          .createNote({
+            title: title ? title : "dummy title",
+            category: category ? category : "dummy category",
+            content: content ? content : "dummy content",
+            imagePath: imagePath ? imagePath : "",
+          })
+          .then(() => {
+            res.redirect("/home");
+          });
       }
     })
     .catch((err) => {

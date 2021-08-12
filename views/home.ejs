@@ -25,11 +25,15 @@
             <% if (notes) { %>
             <% notes.forEach(element => { %>
               <div class="col">
-                <div class="card border-black mb-3 " style="max-width: 18rem; height: 8rem;">
+                <div class="card border-black mb-3 " style="max-width: 18rem; min-height: 8rem;">
                   <div class="card-header"><%= element.title %> </div>
                   <div class="card-body text-dark">
                     <h5 class="card-title"><%= element.category %></h5>
                     <p class="card-text"><%= element.content %> </p>
+                    <!-- ! IMAGE DISPLAYER -->
+                    <% if (element.imagePath) { %>
+                      <img class="text-center"src="/<%= element.imagePath %>" alt="<%= element.title %>" height="100" width="100"/>
+                    <% } %>
                   </div>
                 </div>
               </div>
