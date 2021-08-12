@@ -17,9 +17,17 @@ exports.homeController = (req, res, next) => {
             notes: notes,
           });
         })
-        .catch((err) => console.log(err));
+        .catch((err) => {
+          const error = new Error(err);
+          error.httpStatusCode = 500;
+          return next(error);
+        });
     })
-    .catch((err) => console.log(err));
+    .catch((err) => {
+      const error = new Error(err);
+      error.httpStatusCode = 500;
+      return next(error);
+    });
 };
 
 exports.createNoteController = (req, res, next) => {
@@ -41,5 +49,9 @@ exports.postCreateNote = (req, res, next) => {
         });
       }
     })
-    .catch((err) => console.log(err));
+    .catch((err) => {
+      const error = new Error(err);
+      error.httpStatusCode = 500;
+      return next(error);
+    });
 };

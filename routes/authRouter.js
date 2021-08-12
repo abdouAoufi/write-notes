@@ -1,5 +1,6 @@
 const express = require("express");
 const Auth = require("../controller/Auth");
+const Reset = require("../controller/Reset")
 const router = express.Router();
 const { body } = require("express-validator");
 const User = require("../Model/User");
@@ -61,14 +62,14 @@ router.post(
 
 router.post("/logout", Auth.postLogout);
 
-router.get("/reset", Auth.getResetPassword);
+router.get("/reset", Reset.getResetPassword);
 
-router.post("/reset", Auth.postResetPassword);
+router.post("/reset", Reset.postResetPassword);
 
-router.get("/reset/:token", Auth.getNewPasswordReset);
+router.get("/reset/:token", Reset.getNewPasswordReset);
 
-router.post("/new-password", Auth.postNewPassword);
+router.post("/new-password", Reset.postNewPassword);
 
-router.get("/back-link.ejs", Auth.getBackLink);
+router.get("/back-link.ejs", Reset.getBackLink);
 
 module.exports = router;

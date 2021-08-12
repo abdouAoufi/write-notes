@@ -25,14 +25,37 @@ app.use(bodyParser.urlencoded({ extended: false }));
 // set up static files
 app.use(express.static(path.join(__dirname, "public")));
 
-const protection = csrf();
+// const protection = csrf();
+
+// storeage configuration
+const fileStorage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    cb(null, "images");
+  },
+  filename: (req, file, cb) => {
+    cb(null, new Date().toISOString() + "-" + file.originalname);
+  },
+});
+
+// filter files so only images are accepted ...
+const fileFilter = (req, file, cb) => {
+  if (
+    file.mimetype === "image/png" ||
+    file.mimetype === "image/jpeg" ||
+    file.mimetype === "image/jpg"
+  ) {
+    cb(null, true);
+  } else {
+    cb(null, false);
+  }
+};
 
 db.sync()
   .then(() => {
     console.log("Connected !");
     app.listen(3000);
   })
-  .catch((err) => console.log("Error !", err));
+  .catch((err) => {});
 
 // set up relations
 Note.belongsTo(User, { onDelete: "CASCADE", constrain: true });
@@ -71,3 +94,8 @@ app.use((req, res, next) => {
 app.use(authRouter);
 app.use(homeRouter);
 app.use(errRouter);
+
+app.use((err, req, res, next) => {
+  console.log(err)
+  res.render("500.ejs", { pageTitle: "Server problem" , err : err});
+});

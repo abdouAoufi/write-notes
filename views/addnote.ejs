@@ -7,7 +7,7 @@
    <%- include("./includes/navbar.ejs") %> 
    <main>
    <div class="container">
-    <form action="/create-note" method="post">
+    <form action="/create-note" method="post" enctype="multipart/form-data">
         <div class="input-group mb-3 mt-3" >
           <span class="input-group-text" id="inputGroup-sizing-default">Title</span>
           <input name="title" type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
@@ -23,6 +23,7 @@
         <div class="form-group mt-4 text-center">
           <button type="button|submit" class="btn btn-dark px-4">Save</button>
         </div>
+        <input type="file" name="image" placeholder="Your image here ...">
         <input type="hidden" name="_csrf" value="csrfToken" />
     </form>
     </div>
