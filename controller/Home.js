@@ -39,12 +39,17 @@ exports.postCreateNote = (req, res, next) => {
   const title = req.body.title;
   const category = req.body.category;
   const content = req.body.content;
+  const image = req.file;
+  if (!image) {
+    return res.render("addnote.ejs", { pageTitle: "Add note", isLogged: true });
+  }
+  const imagePath = image.path;
 
   User.findByPk(userId)
     .then((user) => {
       console.log("found this item");
       if (user) {
-        user.createNote({ title, category, content }).then(() => {
+        user.createNote({ title, category, content, imagePath }).then(() => {
           res.redirect("/home");
         });
       }

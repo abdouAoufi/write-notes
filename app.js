@@ -12,6 +12,7 @@ const session = require("express-session");
 const csrf = require("csurf");
 const MySQLStore = require("express-mysql-session")(session);
 const flash = require("connect-flash");
+const multer = require("multer");
 
 // set up view engine
 // set up a view engine in our case is EJS
@@ -83,6 +84,9 @@ app.use(
 
 // app.use(protection);
 app.use(flash());
+app.use(
+  multer({ storage: fileStorage, fileFilter: fileFilter }).single("image")
+); // recive file from ....
 // { force: true }
 
 app.use((req, res, next) => {
@@ -96,6 +100,6 @@ app.use(homeRouter);
 app.use(errRouter);
 
 app.use((err, req, res, next) => {
-  console.log(err)
-  res.render("500.ejs", { pageTitle: "Server problem" , err : err});
+  console.log(err);
+  res.render("500.ejs", { pageTitle: "Server problem", err: err });
 });

@@ -8,9 +8,10 @@ const Note = sequelize.define("note", {
     allowNull: false,
     primaryKey: true,
   },
-  title: { type: DataTypes.STRING },
-  category: { type: DataTypes.STRING },
-  content: { type: DataTypes.STRING },
+  title: { type: DataTypes.STRING, allowNull: false },
+  category: { type: DataTypes.STRING, allowNull: false },
+  content: { type: DataTypes.STRING, allowNull: false },
+  imagePath: { type: DataTypes.STRING },
 });
 
-module.exports = Note ;
+module.exports = Note;
