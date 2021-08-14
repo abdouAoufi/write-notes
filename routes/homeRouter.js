@@ -12,4 +12,6 @@ router.get("/create-note", isAuth , homeController.createNoteController);
 
 router.post("/create-note", isAuth , homeController.postCreateNote);
 
+router.delete("/delete/:noteId" , isAuth , homeController.deleteNote)
+
 module.exports = router;

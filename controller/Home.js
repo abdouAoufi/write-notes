@@ -70,3 +70,9 @@ exports.postCreateNote = (req, res, next) => {
       return next(error);
     });
 };
+
+exports.deleteNote = (req, res, next) => {
+  const noteId = req.params.noteId;
+  console.log(noteId);
+  res.status(200).json({ message: "Success" });
+};
