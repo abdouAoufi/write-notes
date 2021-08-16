@@ -25,7 +25,7 @@
             <% if (notes) { %>
             <%  for (let element of notes) { %>
               <div class="col">
-                <div class="card border-black mb-3 " style="max-width: 18rem; min-height: 8rem;">
+                <article class="card border-black mb-3 " style="max-width: 18rem; min-height: 8rem;">
                   <div class="card-header"><%= element.title %> </div>
                   <div class="card-body text-dark">
                     <h5 class="card-title"><%= element.category %></h5>
@@ -37,7 +37,7 @@
                     <% } %>
                     <button id="delete" onclick="deleteNote(this)">delete</button>
                   </div>
-                </div>
+                </article>
               </div>
             <% } %>
             <% } %>
