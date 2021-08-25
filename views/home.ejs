@@ -21,11 +21,11 @@
       <div class="notes">
         <div class="container">
           <h3 class="my-3 text-primary">My notes :</h3>
-          <div class="row">
+          <div class="my-row">
             <% if (notes) { %>
             <%  for (let element of notes) { %>
               <div class="col">
-                <article class="card border-black mb-3 " style="max-width: 18rem; min-height: 8rem;">
+                <article class="card border-black mb-3 " style="position: relative; width: 15rem; min-width: 15rem; max-width: 18rem; min-height: 8rem;">
                   <div class="card-header"><%= element.title %> </div>
                   <div class="card-body text-dark">
                     <h5 class="card-title"><%= element.category %></h5>
@@ -35,7 +35,9 @@
                     <% if (element.imagePath) { %>
                       <img class="text-center"src="/<%= element.imagePath %>" alt="<%= element.title %>" height="100" width="100"/>
                     <% } %>
-                    <button id="delete" onclick="deleteNote(this)">delete</button>
+                    <div id="delete" onclick="deleteNote(this)">
+                      <img src="img/delete.svg" class="img-btn">
+                    </img>
                   </div>
                 </article>
               </div>

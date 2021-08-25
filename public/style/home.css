@@ -1,16 +1,110 @@
-.hero{
-   padding: 1rem 2rem;
-   display: flex;
-   justify-content: space-around;
-   align-items: center;
+.hero {
+  padding: 1rem 2rem;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
 }
 
-.notes{
-   /* padding-left : 2.8rem; */
+.notes {
+  /* padding-left : 2.8rem; */
 }
 
-.btn-containter{
-   position: fixed;
-   bottom: 3rem;
-   right: 3rem;
+.btn-containter {
+  position: fixed;
+  bottom: 3rem;
+  right: 3rem;
+}
+
+.my-row {
+  width: 100%;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1rem;
+}
+
+
+#delete{
+   position: absolute;
+   top: 4px;
+   right: 4px;
+}
+
+.img-btn{
+   height: 25px;
+   width: 25px;
+}
+/* 
+  ##Device = Desktops
+  ##Screen = 1281px to higher resolution desktops
+*/
+
+@media (min-width: 1281px) {
+  /* CSS */
+  .my-row {
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+  }
+}
+
+/* 
+   ##Device = Laptops, Desktops
+   ##Screen = B/w 1025px to 1280px
+ */
+
+@media (min-width: 1025px) and (max-width: 1280px) {
+  /* CSS */
+  /* CSS */
+  .my-row {
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+  }
+}
+
+/* 
+   ##Device = Tablets, Ipads (portrait)
+   ##Screen = B/w 768px to 1024px
+ */
+
+@media (min-width: 768px) and (max-width: 1024px) {
+  /* CSS */
+  /* CSS */
+  .my-row {
+    grid-template-columns: 1fr 1fr 1fr;
+  }
+}
+
+/* 
+   ##Device = Tablets, Ipads (landscape)
+   ##Screen = B/w 768px to 1024px
+ */
+
+@media (min-width: 768px) and (max-width: 1024px) and (orientation: landscape) {
+  /* CSS */
+  /* CSS */
+  .my-row {
+    grid-template-columns: 1fr 1fr 1fr;
+  }
+}
+
+/* 
+   ##Device = Low Resolution Tablets, Mobiles (Landscape)
+   ##Screen = B/w 481px to 767px
+ */
+
+@media (min-width: 481px) and (max-width: 767px) {
+  /* CSS */
+  /* CSS */
+  .my-row {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+/* 
+   ##Device = Most of the Smartphones Mobiles (Portrait)
+   ##Screen = B/w 320px to 479px
+ */
+
+@media (min-width: 320px) and (max-width: 480px) {
+  .my-row {
+    place-items: center;
+  }
+  /* CSS */
 }
