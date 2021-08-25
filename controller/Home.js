@@ -1,9 +1,9 @@
 const User = require("../Model/User");
-const Note = require("../Model/Note")
-
+const Note = require("../Model/Note");
+const { validationResult } = require("express-validator");
 exports.welcomeController = (req, res, next) => {
   res.render("welcome.ejs", {
-    pageTitle: "Welcome"
+    pageTitle: "Welcome",
   });
 };
 
@@ -36,7 +36,7 @@ exports.homeController = (req, res, next) => {
 exports.createNoteController = (req, res, next) => {
   res.render("addnote.ejs", {
     pageTitle: "Add note",
-    isLogged: true
+    isLogged: true,
   });
 };
 
@@ -46,6 +46,11 @@ exports.postCreateNote = (req, res, next) => {
   const category = req.body.category;
   const content = req.body.content;
   const image = req.file;
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    const error = errors.array()[0].msg;
+    return res.redirect("/create-note");
+  }
   // if (!image) {
   //   return res.render("addnote.ejs", { pageTitle: "Add note", isLogged: true });
   // }
@@ -78,15 +83,12 @@ exports.postCreateNote = (req, res, next) => {
 };
 
 exports.deleteNote = (req, res, next) => {
-  const noteId = req.params.noteId;
   Note.destroy({
     where: {
-      id: noteId,
-      userId : req.session.userId,
-    }
-  }).then(result => console.log(result)).catch(err => console.log(err))
-  console.log(noteId);
-  res.status(200).json({
-    message: "Success"
-  });
+      id: req.body.elementId,
+      userId: req.session.userId,
+    },
+  })
+    .then((result) => console.log(res.redirect("/home")))
+    .catch((err) => console.log(err));
 };

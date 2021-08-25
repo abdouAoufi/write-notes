@@ -19,6 +19,7 @@
       </div> 
 
       <div class="notes">
+    
         <div class="container">
           <h3 class="my-3 text-primary">My notes :</h3>
           <div class="my-row">
@@ -30,14 +31,20 @@
                   <div class="card-body text-dark">
                     <h5 class="card-title"><%= element.category %></h5>
                     <p class="card-text"><%= element.content %> </p>
-                    <input type="hidden" name="elementId" value="<%= element.id %>" />
+                    
+                   
                     <!-- ! IMAGE DISPLAYER -->
                     <% if (element.imagePath) { %>
                       <img class="text-center"src="/<%= element.imagePath %>" alt="<%= element.title %>" height="100" width="100"/>
                     <% } %>
-                    <div id="delete" onclick="deleteNote(this)">
-                      <img src="img/delete.svg" class="img-btn">
-                    </img>
+                    <form action="/delete/?_csrf=<%=csrfToken%>" method="post">
+                      <button type="submit" style="position: absolute; right: 4px; top: 4px;">
+                        <input type="hidden" id="_csrf" value=<%= csrfToken %> >
+                        <input type="hidden" name="elementId" value="<%= element.id %>" />
+                        <img src="img/delete.svg" class="img-btn">
+                      </img>
+                    </form>
+                   
                   </div>
                 </article>
               </div>
@@ -46,6 +53,7 @@
           </div>
       </div>
       </div>
+     
    </main>
 
    <div class="btn-containter">
@@ -54,6 +62,5 @@
 
  
    <%- include("./includes/js-boot.ejs") %> 
-   <script src="/js/home.js"></script>
   </body>
 </html>

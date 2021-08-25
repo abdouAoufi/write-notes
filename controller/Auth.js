@@ -6,6 +6,7 @@ const { validationResult } = require("express-validator");
 
 exports.signUp = (req, res, next) => {
   const isLogged = req.session.isLoggedIn;
+  const csrfToken = req.session.csrfToken;
   if (!isLogged) {
     res.render("signup.ejs", {
       pageTitle: "Sign up",

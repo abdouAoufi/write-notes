@@ -27,7 +27,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, "public")));
 app.use("/images" ,express.static(path.join(__dirname, "images")));
 
-// const protection = csrf();
+const protection = csrf();
 
 // storeage configuration
 const fileStorage = multer.diskStorage({
@@ -83,7 +83,7 @@ app.use(
   })
 );
 
-// app.use(protection);
+app.use(protection);
 app.use(flash());
 app.use(
   multer({ storage: fileStorage, fileFilter: fileFilter }).single("image")
@@ -92,7 +92,7 @@ app.use(
 
 app.use((req, res, next) => {
   res.locals.isAuthenticated = req.session.isLoggedIn;
-  // res.locals.csrfToken = req.csrfToken();
+  res.locals.csrfToken = req.csrfToken();
   next();
 });
 
