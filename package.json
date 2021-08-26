@@ -3,6 +3,9 @@
   "version": "1.0.0",
   "description": "Simple web app using node js",
   "main": "app.js",
+  "engines": {
+    "node": "16.7.0"
+  },
   "scripts": {
     "start": "PORT=3000 dbNAME=bkr7mvenigi7x98fawjf dbUserName=uxdxbakayeluo7ax dbPassword=ptipiiNJ76k5TKxIS4yc dbHosht=bkr7mvenigi7x98fawjf-mysql.services.clever-cloud.com node app.js",
     "start-server": "node app.js",
