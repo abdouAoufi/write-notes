@@ -17,7 +17,7 @@ const helmet = require("helmet"); // secure
 const compression = require("compression"); // reduce files sizes
 const morgan = require("morgan"); // loggin details
 const fs = require("fs");
-console.log(process.env.PORT)
+
 
 // set up view engine
 // set up a view engine in our case is EJS
@@ -66,8 +66,9 @@ const fileFilter = (req, file, cb) => {
 
 db.sync()
   .then(() => {
+    console.log(process.env.PORT)
     console.log("Connected !");
-    app.listen(3000 || process.env.PORT);
+    app.listen(3001 || process.env.PORT);
   })
   .catch((err) => {});
 
