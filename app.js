@@ -67,7 +67,7 @@ const fileFilter = (req, file, cb) => {
 db.sync()
   .then(() => {
     console.log("Connected !");
-    app.listen(3000 );
+    app.listen(3000 || process.env.PORT);
   })
   .catch((err) => {});
 
