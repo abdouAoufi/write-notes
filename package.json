@@ -6,8 +6,9 @@
   "engines": {
     "node": "16.7.0"
   },
+ 
   "scripts": {
-    "start": "PORT=3000 dbNAME=bkr7mvenigi7x98fawjf dbUserName=uxdxbakayeluo7ax dbPassword=ptipiiNJ76k5TKxIS4yc dbHosht=bkr7mvenigi7x98fawjf-mysql.services.clever-cloud.com node app.js",
+    "start": " dbNAME=bkr7mvenigi7x98fawjf dbUserName=uxdxbakayeluo7ax dbPassword=ptipiiNJ76k5TKxIS4yc dbHosht=bkr7mvenigi7x98fawjf-mysql.services.clever-cloud.com PORT=3000 node app.js",
     "start-server": "node app.js",
     "start:dev": "nodemon app.js",
     "test": "echo \"Error: no test specified\" && exit 1"
