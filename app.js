@@ -67,7 +67,7 @@ const fileFilter = (req, file, cb) => {
 db.sync()
   .then(() => {
     console.log("Connected !");
-    app.listen(3000 || process.env.PORT );
+    app.listen(3000 );
   })
   .catch((err) => {});
 
@@ -76,11 +76,11 @@ Note.belongsTo(User, { onDelete: "CASCADE", constrain: true });
 User.hasMany(Note);
 
 var options = {
-  host: "localhost",
+  host: "bkr7mvenigi7x98fawjf-mysql.services.clever-cloud.com",
   port: 3306,
-  user: "root",
-  password: "abdou1331",
-  database: "todo",
+  user: "uxdxbakayeluo7ax",
+  password: "ptipiiNJ76k5TKxIS4yc",
+  database: "bkr7mvenigi7x98fawjf",
 };
 
 var sessionStore = new MySQLStore(options);
